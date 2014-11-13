@@ -66,6 +66,72 @@ module DataMapper
       @descendants ||= DescendantSet.new
     end
 
+    # Return if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (globally)
+    #
+    # This is false by default.
+    #
+    #   DataMapper::Model.cast_empty_strings_to_nil  # => false
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def self.cast_empty_strings_to_nil
+      if defined?(@cast_empty_strings_to_nil)
+        @cast_empty_strings_to_nil
+      else
+        false
+      end
+    end
+
+    # Specify if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (globally)
+    #
+    # @param [Boolean]
+    #   a boolean that if true will cause empty strings automatically to be casted to a NULL-value
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def self.cast_empty_strings_to_nil=(cast_empty_strings_to_nil)
+      @cast_empty_strings_to_nil = cast_empty_strings_to_nil
+    end
+
+    # Return if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (per-model)
+    #
+    # This delegates to DataMapper::Model.cast_empty_strings_to_nil by default.
+    #
+    #   User.cast_empty_strings_to_nil  # => false
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def cast_empty_strings_to_nil
+      if defined?(@cast_empty_strings_to_nil)
+        @cast_empty_strings_to_nil
+      else
+        DataMapper::Model.cast_empty_strings_to_nil
+      end
+    end
+
+    # Specify if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (per-model)
+    #
+    # @param [Boolean]
+    #   a boolean that if true will cause empty strings automatically to be casted to a NULL-value
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def cast_empty_strings_to_nil=(cast_empty_strings_to_nil)
+      @cast_empty_strings_to_nil = cast_empty_strings_to_nil
+    end
+
     # Return if Resource#save should raise an exception on save failures (globally)
     #
     # This is false by default.

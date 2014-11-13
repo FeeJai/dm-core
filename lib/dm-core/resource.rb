@@ -17,6 +17,39 @@ module DataMapper
       raise "DataMapper::Resource.descendants is deprecated, use DataMapper::Model.descendants instead (#{caller.first})"
     end
 
+    # Return if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (per-resource)
+    #
+    # This delegates to model.cast_empty_strings_to_nil by default.
+    #
+    #   user.cast_empty_strings_to_nil  # => false
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def cast_empty_strings_to_nil
+      if defined?(@cast_empty_strings_to_nil)
+        @cast_empty_strings_to_nil
+      else
+        model.cast_empty_strings_to_nil
+      end
+    end
+
+    # Specify if an assignment of an empty string to a not-required property should
+    # automatically be casted to a NULL-value (per-resource)
+    #
+    # @param [Boolean]
+    #   a boolean that if true will cause empty strings automatically to be casted to a NULL-value
+    #
+    # @return [Boolean]
+    #   true if an empty string should automatically be casted to a NULL-value
+    #
+    # @api public
+    def cast_empty_strings_to_nil=(cast_empty_strings_to_nil)
+      @cast_empty_strings_to_nil = cast_empty_strings_to_nil
+    end
+
     # Return if Resource#save should raise an exception on save failures (per-resource)
     #
     # This delegates to model.raise_on_save_failure by default.

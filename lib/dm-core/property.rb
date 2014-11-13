@@ -682,6 +682,9 @@ module DataMapper
     def typecast(value)
       if value.nil? || primitive?(value)
         value
+      elsif model.cast_empty_strings_to_nil && !required? && value.empty?
+        DataMapper.logger.debug "Casting empty #{value.class} for #{name.inspect} to NULL-Value"
+        nil
       elsif respond_to?(:typecast_to_primitive, true)
         typecast_to_primitive(value)
       else
