@@ -680,7 +680,7 @@ module DataMapper
 
     # @api semipublic
     def typecast(value)
-      if model.cast_empty_strings_to_nil && 'String' == value.class && value.empty?
+      if model.cast_empty_strings_to_nil && 'String'.class == value.class && value.empty?
         DataMapper.logger.debug "Casting empty #{value.class} for #{name.inspect} to NULL-Value"
         nil
       elsif value.nil? || primitive?(value)
