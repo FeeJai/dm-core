@@ -680,15 +680,13 @@ module DataMapper
 
     # @api semipublic
     def typecast(value)
-      if model.cast_empty_strings_to_nil && String == value.class && value.empty?
+      if model.cast_empty_strings_to_nil && "String".class == value.class && value.empty?
         nil
       elsif value.nil? || primitive?(value)
         value
       elsif respond_to?(:typecast_to_primitive, true)
-        DataMapper.logger.info "- cast-to-primitive "
         typecast_to_primitive(value)
       else
-        DataMapper.logger.info "- return unchanged"
         value
       end
     end
