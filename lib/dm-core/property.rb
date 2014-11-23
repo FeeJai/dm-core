@@ -685,7 +685,7 @@ module DataMapper
         DataMapper.logger.info "- nil "
 
         value
-      elsif model.cast_empty_strings_to_nil && !required? && kind_of?(String) && value.empty?
+      elsif model.cast_empty_strings_to_nil && !required? && value.kind_of?(String) && value.empty?
         DataMapper.logger.debug "Casting empty #{value.class} for #{name.inspect} to NULL-Value"
         nil
       elsif primitive?(value)
