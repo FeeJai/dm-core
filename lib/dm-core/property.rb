@@ -680,16 +680,23 @@ module DataMapper
 
     # @api semipublic
     def typecast(value)
+      DataMapper.logger.info "Casting #{value.class} for #{name.inspect} :" + value.inspect
       if value.nil?
+        DataMapper.logger.info "- nil "
+
         value
       elsif value.kind_of?(String) && model.cast_empty_strings_to_nil && !required? && value.empty?
         DataMapper.logger.debug "Casting empty #{value.class} for #{name.inspect} to NULL-Value"
         nil
       elsif primitive?(value)
+        DataMapper.logger.info "- primitive "
+
         value
       elsif respond_to?(:typecast_to_primitive, true)
+        DataMapper.logger.info "- cast-to-primitive "
         typecast_to_primitive(value)
       else
+        DataMapper.logger.info "- return unchanged"
         value
       end
     end
