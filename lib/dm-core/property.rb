@@ -682,15 +682,11 @@ module DataMapper
     def typecast(value)
       DataMapper.logger.info "Casting #{value.class} for #{name.inspect} :" + value.inspect
       if value.nil?
-        DataMapper.logger.info "- nil "
-
         value
       elsif model.cast_empty_strings_to_nil && !required? && value.kind_of?(String) && value.empty?
         DataMapper.logger.debug "Casting empty #{value.class} for #{name.inspect} to NULL-Value"
         nil
       elsif primitive?(value)
-        DataMapper.logger.info "- primitive "
-
         value
       elsif respond_to?(:typecast_to_primitive, true)
         DataMapper.logger.info "- cast-to-primitive "
